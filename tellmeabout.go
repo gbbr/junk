@@ -90,9 +90,7 @@ type User struct {
 }
 
 func main() {
-	p := &Post{
+	TellMeAbout(&Post{
 		1, "About me", &User{1, '∞', [2]string{"Mom", "Dad"}}, 2,
-	}
-
-	TellMeAbout(p)
+	})
 }
