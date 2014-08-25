@@ -80,17 +80,18 @@ type Post struct {
 	Id   int
 	Name string
 	User *User
-	Age  uint
+	age  int32
 }
 
 type User struct {
-	Id   int
-	Name string
+	Id      int64
+	Initial rune
+	Parents [2]string
 }
 
 func main() {
 	p := &Post{
-		1, "About me", &User{1, "James"}, 12,
+		1, "About me", &User{1, '∞', [2]string{"Mom", "Dad"}}, 2,
 	}
 
 	TellMeAbout(p)
