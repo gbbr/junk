@@ -10,11 +10,13 @@ type Post struct {
 	Id   int
 	Name string
 	User *User
+	age  int32
 }
 
 type User struct {
-	Id   int
-	Name string
+	Id      int64
+	Initial rune
+	Parents [2]string
 }
 ```
 
@@ -22,7 +24,7 @@ Doing the following:
 
 ```go
 TellMeAbout(&Post{
-	1, "About me", &User{1, "James"},
+	1, "About me", &User{1, '∞', [2]string{"Mom", "Dad"}}, 2,
 })
 ```
 
@@ -35,7 +37,9 @@ You've passed a pointer to Post, with fields:
    - string
    - pointer to User, with fields:
 
-      - int
-      - string
+      - int64
+      - int32
+      - [2]string
 
+   - int32
 ```
