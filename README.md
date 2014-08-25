@@ -1,7 +1,7 @@
 tellmeabout
 ===========
 
-Experimenting with Go's reflectino package. TellMeAbout is a method that takes an object of any type and describes it recursively.
+Experimenting with Go's [reflect](http://golang.org/pkg/reflect/) package. TellMeAbout is a method that takes an object of any type and describes it recursively.
 
 For example, given the structures:
 
