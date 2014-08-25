@@ -44,6 +44,7 @@ func describeStruct(object reflect.Value) {
 		if field.Kind() == reflect.Struct {
 			indent++
 			describeStruct(field)
+			indent--
 		}
 
 		fmt.Println()
@@ -79,6 +80,7 @@ type Post struct {
 	Id   int
 	Name string
 	User *User
+	Age  uint
 }
 
 type User struct {
@@ -88,7 +90,7 @@ type User struct {
 
 func main() {
 	p := &Post{
-		1, "About me", &User{1, "James"},
+		1, "About me", &User{1, "James"}, 12,
 	}
 
 	TellMeAbout(p)
