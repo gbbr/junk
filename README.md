@@ -21,11 +21,11 @@ type User struct {
 Doing the following:
 
 ```go
-	p := &Post{
-		1, "About me", &User{1, "James"},
-	}
-	
-	TellMeAbout(p)
+p := &Post{
+	1, "About me", &User{1, "James"},
+}
+
+TellMeAbout(p)
 ```
 
 Will output:
