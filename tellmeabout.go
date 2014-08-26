@@ -29,7 +29,6 @@ func getValueType(val reflect.Value) string {
 func describeStruct(object reflect.Value) {
 	fmt.Printf(", with fields:\r\n\r\n")
 
-	// If we have a structure explain the fields
 	for i := 0; i < object.NumField(); i++ {
 		field := object.Field(i)
 
@@ -71,6 +70,8 @@ func TellMeAbout(obj interface{}) {
 	}
 
 	fmt.Print(getValueType(object))
+	
+	// If we have a structure start describing it
 	describeStruct(object)
 
 	fmt.Println()
