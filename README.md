@@ -23,7 +23,7 @@ type User struct {
 Doing the following:
 
 ```go
-TellMeAbout(&Post{
+TellMeAbout(Post{
 	1, "About me", &User{1, '∞', [2]string{"Mom", "Dad"}}, 2,
 })
 ```
@@ -31,7 +31,7 @@ TellMeAbout(&Post{
 Will output:
 
 ```
-You've passed a pointer to Post, with fields:
+You've passed a Post, with fields:
 
    - int
    - string
