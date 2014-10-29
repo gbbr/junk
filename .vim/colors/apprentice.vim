@@ -37,7 +37,7 @@ set background=dark
 let colors_name = 'apprentice'
 
 if &t_Co >= 256 || has('gui_running')
-  hi Normal           ctermbg=234  ctermfg=250  guibg=#1c1c1c guifg=#bcbcbc cterm=NONE           gui=NONE
+  hi Normal           ctermbg=233  ctermfg=250  guibg=#1c1c1c guifg=#bcbcbc cterm=NONE           gui=NONE
 
   set background=dark
 
@@ -58,7 +58,7 @@ if &t_Co >= 256 || has('gui_running')
   hi NonText          ctermbg=NONE ctermfg=240  guibg=NONE    guifg=#585858 cterm=NONE           gui=NONE
 
   hi Pmenu            ctermbg=238  ctermfg=250  guibg=#444444 guifg=#bcbcbc cterm=NONE           gui=NONE
-  hi PmenuSbar        ctermbg=240  ctermfg=NONE guibg=#585858 guifg=NONE    cterm=NONE           gui=NONE
+  hi PmenuSbar        ctermbg=234  ctermfg=NONE guibg=#585858 guifg=NONE    cterm=NONE           gui=NONE
   hi PmenuSel         ctermbg=66   ctermfg=235  guibg=#5f8787 guifg=#262626 cterm=NONE           gui=NONE
   hi PmenuThumb       ctermbg=66   ctermfg=66   guibg=#5f8787 guifg=#5f8787 cterm=NONE           gui=NONE
 
