@@ -8,6 +8,8 @@ set laststatus=2
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
+let g:SuperTabDefaultCompletionType = "context"
 
-" NerdTree
+" Keybindings
 nmap <F3> :NERDTreeToggle<CR>
+nmap s <Plug>(easymotion-s)
