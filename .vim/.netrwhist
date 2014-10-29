@@ -1,3 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =2
 let g:netrw_dirhist_1='/Users/Gabriel/.vim'
+let g:netrw_dirhist_2='/Volumes/Work/Go/src/github.com/gbbr/gomez'
