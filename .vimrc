@@ -6,6 +6,9 @@ filetype plugin indent on
 set number
 set laststatus=2
 
+" Colorscheme
+colorscheme apprentice
+
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:SuperTabDefaultCompletionType = "context"
