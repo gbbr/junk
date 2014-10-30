@@ -3,7 +3,7 @@
 ##
 
 export GOPATH=~/go
-export PATH=$GOPATH:$PATH
+export PATH=$GOPATH/bin:$PATH
 export CLICOLOR=1
 export TERM=xterm-256color
 
@@ -32,6 +32,7 @@ PS1="$GREEN\u@\h$NO_COLOUR:\W$YELLOW\$(parse_git_branch)$NO_COLOUR\$ "
 
 alias bye='exit'
 alias swap='echo; echo "Breakdown:"; du -hs /private/var/vm/*; echo; echo "Total: "; du -hs /private/var/vm/;echo;'
+alias gg="git grep -C 3 $@"
 
 ##
 # HISTORY AUCO-COMPLETE
