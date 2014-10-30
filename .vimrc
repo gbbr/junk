@@ -4,9 +4,6 @@ execute pathogen#infect()
 filetype plugin indent on
 let mapleader = ","
 
-" Source vimrc files after editing
-autocmd bufwritepost .vimrc source <afile>
-
 " Theme
 syntax on
 colorscheme apprentice
