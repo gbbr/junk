@@ -26,6 +26,7 @@ nmap s <Plug>(easymotion-s)
 
 " NerdTree
 nmap <leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>f :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen=1
 
 " Tabs and spaces
