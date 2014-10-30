@@ -20,6 +20,7 @@ set number
 "
 set completeopt=longest,menuone
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 "
 " StatusBar (Airline)
