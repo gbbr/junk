@@ -11,8 +11,8 @@ export PATH=$PATH:$SUBL_BIN:/Applications/MAMP/Library/bin:/usr/local/apache-mav
 export CLICOLOR=1
 export TERM=xterm-256color
 
-export http_proxy=http://10.23.28.130:8080
-export https_proxy=http://10.23.28.131:8080
+#export http_proxy=http://10.23.28.130:8080
+#export https_proxy=http://10.23.28.131:8080
 
 ##
 # COMMAND LINE FORMAT
