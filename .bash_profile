@@ -6,6 +6,7 @@ export GOPATH=~/go
 export PATH=$GOPATH/bin:$PATH
 export CLICOLOR=1
 export TERM=xterm-256color
+export CDPATH=".:$GOPATH/src/github.com:$CDPATH"
 
 ##
 # COMMAND LINE FORMAT
