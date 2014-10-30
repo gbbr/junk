@@ -7,6 +7,7 @@ export PATH=$GOPATH/bin:$PATH
 export CLICOLOR=1
 export TERM=xterm-256color
 export CDPATH=".:$GOPATH/src/github.com:$CDPATH"
+export EDITOR=vim
 
 ##
 # COMMAND LINE FORMAT
