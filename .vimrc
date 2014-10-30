@@ -23,6 +23,6 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:airline#extensions#tabline#enabled = 1
 
 " Keybindings
-nmap <F3> :NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeToggle<CR>
 nmap s <Plug>(easymotion-s)
 nmap <leader>l :set list!<CR>
