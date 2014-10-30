@@ -8,6 +8,7 @@ set number
 set laststatus=2
 set tabstop=4
 let mapleader = ","
+autocmd BufEnter * set listchars=tab:▸\ ,eol:¬
 
 " Colorscheme
 colorscheme apprentice
@@ -22,3 +23,4 @@ let g:SuperTabDefaultCompletionType = "context"
 " Keybindings
 nmap <F3> :NERDTreeToggle<CR>
 nmap s <Plug>(easymotion-s)
+nmap <leader>l :set list!<CR>
