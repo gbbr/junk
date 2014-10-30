@@ -1,29 +1,31 @@
 execute pathogen#infect()
 
 " General settings
-syntax on
 filetype plugin indent on
-
-set cursorline
-set number
-set laststatus=2
-set tabstop=4
-set listchars=tab:▸\ ,eol:¬
-
-let NERDTreeQuitOnOpen=1
 let mapleader = ","
 
-" Colorscheme
+" Theme
+syntax on
 colorscheme apprentice
+set cursorline
+set number
 
-" Autocomplete
+" Autocomplete (SuperTab)
 set completeopt=longest,menuone
 let g:SuperTabDefaultCompletionType = "context"
 
-" Airline
+" StatusBar (Airline)
 let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
 
-" Keybindings
-nmap <leader>n :NERDTreeToggle<CR>
+" EasyMotion
 nmap s <Plug>(easymotion-s)
+
+" NerdTree
+nmap <leader>n :NERDTreeToggle<CR>
+let NERDTreeQuitOnOpen=1
+
+" Tabs and spaces
 nmap <leader>l :set list!<CR>
+set listchars=tab:▸\ ,eol:¬
+set tabstop=4
