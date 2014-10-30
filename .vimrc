@@ -10,6 +10,9 @@ set tabstop=4
 " Colorscheme
 colorscheme apprentice
 
+" Autocomplete
+set completeopt=longest,menuone
+
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:SuperTabDefaultCompletionType = "context"
