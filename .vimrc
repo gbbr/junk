@@ -10,6 +10,7 @@ set laststatus=2
 set tabstop=4
 set listchars=tab:▸\ ,eol:¬
 
+let NERDTreeQuitOnOpen=1
 let mapleader = ","
 
 " Colorscheme
