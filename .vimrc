@@ -3,6 +3,7 @@ execute pathogen#infect()
 " General settings
 syntax on
 filetype plugin indent on
+set cursorline
 set number
 set laststatus=2
 set tabstop=4
