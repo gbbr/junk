@@ -2,12 +2,8 @@
 # MAMP SETUP AND COLORS
 ##
 
-export GOPATH=/Users/gabriel/go
+export GOPATH=~/go
 export PATH=$GOPATH:$PATH
-
-export SUBL_BIN=/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/
-export PATH=$PATH:$SUBL_BIN:/Applications/MAMP/Library/bin:/usr/local/apache-maven/bin/
-
 export CLICOLOR=1
 export TERM=xterm-256color
 
