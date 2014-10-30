@@ -7,6 +7,7 @@ set cursorline
 set number
 set laststatus=2
 set tabstop=4
+let mapleader = ","
 
 " Colorscheme
 colorscheme apprentice
