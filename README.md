@@ -1,3 +1,3 @@
-My Go-centric VIM setup. JavaScript syntax included. Apprentice theme.
+My Go & JavaScript centric VIM setup with Apprentice colorscheme.
 
-Clone it and `cd .vim/bundle; ./get.sh` to pull submodules. Enjoy.
+`cd ~ && git clone https://github.com/gbbr/dotfiles.git && cd .vim/bundle && ./get.sh`
