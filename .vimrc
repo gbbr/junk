@@ -6,6 +6,10 @@ execute pathogen#infect()
 autocmd BufEnter *.json set filetype=javascript
 filetype plugin indent on
 let mapleader = ","
+noremap <Right> <C-w>10<
+noremap <Left> <C-w>10>
+noremap <Up> <C-w>4+
+noremap <Down> <C-w>4-
 
 "
 " Theme
