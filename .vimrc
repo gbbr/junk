@@ -48,6 +48,6 @@ let NERDTreeQuitOnOpen=1
 " Tabs and spaces
 "
 nmap <leader>l :set list!<CR>
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:\▸-\,eol:¬,trail:·,nbsp:·
 set tabstop=4
 set shiftwidth=4
