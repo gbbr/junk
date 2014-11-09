@@ -77,16 +77,16 @@ TRY_COMPILE:
 			continue
 		}
 		parts := strings.SplitN(ln, ": ", 2)
-		if len(parts) == 2 {
-			if strings.HasSuffix(parts[1], " declared and not used") {
-				var miss string
-				fmt.Sscanf(parts[1], "%s declared and not used", &miss)
-				line += fmt.Sprintf("; _ = %s", miss)
-				goto TRY_COMPILE
-			}
-			return "", stdout.String(), parts[1]
+		if len(parts) != 2 {
+			return line, ln + "\r\n", ""
 		}
-		return line, ln + "\r\n", ""
+		if strings.HasSuffix(parts[1], " declared and not used") {
+			var miss string
+			fmt.Sscanf(parts[1], "%s declared and not used", &miss)
+			line += fmt.Sprintf("; _ = %s", miss)
+			goto TRY_COMPILE
+		}
+		return "", stdout.String(), parts[1]
 	}
 	return line, stdout.String(), ""
 }
