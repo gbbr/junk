@@ -39,12 +39,6 @@ type state struct {
 	buf bytes.Buffer
 }
 
-// temporary method to fix imports
-func fixImports(filename string) error {
-	cmd := exec.Command("goimports", "-w", filename)
-	return cmd.Run()
-}
-
 // checkError attempts to compile the current buffer with the provided line and returns
 // the message returned by the compiler.
 func (s *state) parseLine(line string) (parsedLine, outMsg, errMsg string) {
@@ -56,11 +50,7 @@ TRY_COMPILE:
 		log.Fatalf("error writing tempfile: %s", err)
 	}
 
-	err = fixImports(tmpFile)
-	if err != nil {
-		log.Fatalf("error fixing imports: %s", err)
-	}
-
+	exec.Command("goimports", "-w", tmpFile).Run()
 	cmd := exec.Command("go", "run", tmpFile)
 	var stdout, stderr bytes.Buffer
 	cmd.Stderr = &stderr
