@@ -90,7 +90,7 @@ func (s *state) accepted(line string) bool {
 		return false
 	}
 	if stdout != "" {
-		fmt.Printf("=> %s", stdout)
+		fmt.Printf("=> %s\r\n", stdout)
 		return true
 	}
 
@@ -129,7 +129,7 @@ LOOP:
 			log.Println("Flushed buffer.")
 			continue
 		case "buf":
-			log.Println(st.buf.String())
+			fmt.Println(st.buf.String())
 			continue
 		default:
 			if st.accepted(scn.Text()) {
