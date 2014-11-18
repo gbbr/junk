@@ -29,7 +29,7 @@ var (
 )
 
 // exposeBox exposes a donation box for contestants
-// to add into (or steal from).
+// to act on.
 func exposeBox() {
 	var beat box
 	for {
