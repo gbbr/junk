@@ -47,7 +47,6 @@ func exposeBox() {
 }
 
 func donor(num int) {
-DEPOSITS:
 	for {
 		select {
 		case cmds <- func(b *box) {
@@ -55,15 +54,13 @@ DEPOSITS:
 			b.openedBy = donors[rand.Intn(5)]
 		}:
 		case <-die:
-			break DEPOSITS
+			return
 		}
 		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
 	}
-	fmt.Println("Going home...")
 }
 
 func thief(num int) {
-THEFTS:
 	for {
 		select {
 		case cmds <- func(b *box) {
@@ -74,11 +71,10 @@ THEFTS:
 			b.openedBy = thieves[rand.Intn(5)]
 		}:
 		case <-die:
-			break THEFTS
+			return
 		}
 		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
 	}
-	fmt.Println("Busted!")
 }
 
 func main() {
