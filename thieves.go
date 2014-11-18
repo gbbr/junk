@@ -60,6 +60,7 @@ func donor(num int) {
 		case <-die:
 			return
 		}
+
 		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
 	}
 }
@@ -79,6 +80,7 @@ func thief(num int) {
 		case <-die:
 			return
 		}
+
 		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
 	}
 }
