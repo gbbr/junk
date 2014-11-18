@@ -25,7 +25,7 @@ type box struct {
 
 var (
 	act = make(chan func(b *box))
-	die = make(chan bool, participants)
+	die = make(chan bool)
 )
 
 // exposeBox exposes a donation box for contestants
