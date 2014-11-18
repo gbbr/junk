@@ -97,15 +97,12 @@ func main() {
 	go exposeBox()
 	for i := 0; i < len(donors); i++ {
 		go donor(i)
-	}
-	for i := 0; i < len(thieves); i++ {
 		go thief(i)
 	}
 
 	ntr := make(chan os.Signal, 1)
 	signal.Notify(ntr, os.Interrupt)
 	<-ntr
-	// Alert participants
 	for i := 0; i < participants; i++ {
 		die <- true
 	}
