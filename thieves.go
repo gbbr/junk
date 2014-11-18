@@ -31,18 +31,18 @@ var (
 // exposeBox exposes a donation box for contestants
 // to act on.
 func exposeBox() {
-	var beat box
+	var b box
 	for {
 		select {
 		case fn := <-act:
-			fn(&beat)
+			fn(&b)
 			clearScreen()
-			fmt.Printf("Contents: %+v\n", beat)
-			beat.waiting = false
+			fmt.Printf("Contents: %+v\n", b)
+			b.waiting = false
 		default:
-			if !beat.waiting {
+			if !b.waiting {
 				log.Println("Waiting...")
-				beat.waiting = true
+				b.waiting = true
 			}
 		}
 	}
