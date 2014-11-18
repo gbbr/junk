@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
 	"os"
 	"os/exec"
@@ -20,7 +19,6 @@ var (
 type box struct {
 	donations int
 	openedBy  string
-	waiting   bool
 }
 
 var (
@@ -38,12 +36,7 @@ func exposeBox() {
 			fn(&b)
 			clearScreen()
 			fmt.Printf("Contents: %+v\n", b)
-			b.waiting = false
 		default:
-			if !b.waiting {
-				log.Println("Waiting...")
-				b.waiting = true
-			}
 		}
 	}
 }
