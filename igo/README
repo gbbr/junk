@@ -1,0 +1,9 @@
+Interactive Go Shell (igo)
+--------------------------
+
+Requires "goimports" command installed.
+
+Inspired by IRB. Messy code. Useful to play around with commands
+without the need to do all the surrounding imports, package, and
+func main() stuff.
+
