@@ -54,8 +54,8 @@ func donor(num int) {
 	for {
 		select {
 		case act <- func(b *box) {
-			b.donations += num
 			b.openedBy = donors[rand.Intn(5)]
+			b.donations += num
 		}:
 		case <-die:
 			return
@@ -70,18 +70,24 @@ func donor(num int) {
 func thief(num int) {
 	for {
 		select {
-		case act <- func(b *box) {
-			if b.donations-num < 0 {
-				num = b.donations
-			}
-			b.donations -= num
-			b.openedBy = thieves[rand.Intn(5)]
-		}:
+		case act <- steal(num):
 		case <-die:
 			return
 		}
 
 		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
+	}
+}
+
+// steal removes N items from the charity box
+// in the name of a random thief
+func steal(N int) func(*box) {
+	return func(b *box) {
+		b.openedBy = thieves[rand.Intn(5)]
+		b.donations -= N
+		if b.donations < 0 {
+			b.donations = 0
+		}
 	}
 }
 
