@@ -31,7 +31,7 @@ func main() {
 	ntr := make(chan os.Signal, 1)
 	signal.Notify(ntr, os.Interrupt)
 	<-ntr
-	for i := 0; i < participants; i++ {
+	for i := 0; i < participants+1; i++ {
 		kill <- true
 	}
 }
@@ -52,7 +52,8 @@ func exposeBox() {
 			fn(&b)
 			clearScreen()
 			fmt.Printf("Contents: %+v\n", b)
-		default:
+		case <-kill:
+			return
 		}
 	}
 }
