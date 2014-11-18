@@ -16,6 +16,26 @@ var (
 	participants = len(thieves) + len(donors)
 )
 
+func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	// Expose a box to interact with
+	go exposeBox()
+	for i := 0; i < len(donors); i++ {
+		// Start all the donors
+		go donor(i)
+		// Start an equal number of thieves
+		go thief(i)
+	}
+
+	ntr := make(chan os.Signal, 1)
+	signal.Notify(ntr, os.Interrupt)
+	<-ntr
+	for i := 0; i < participants; i++ {
+		kill <- true
+	}
+}
+
 type box struct {
 	donations int
 	openedBy  string
@@ -23,8 +43,7 @@ type box struct {
 
 var act = make(chan func(b *box))
 
-// exposeBox exposes a donation box for contestants
-// to act on.
+// exposeBox exposes a donation box for contestants to act on.
 func exposeBox() {
 	var b box
 	for {
@@ -80,23 +99,6 @@ func steal(N int) func(*box) {
 		if b.donations < 0 {
 			b.donations = 0
 		}
-	}
-}
-
-func main() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
-
-	go exposeBox()
-	for i := 0; i < len(donors); i++ {
-		go donor(i)
-		go thief(i)
-	}
-
-	ntr := make(chan os.Signal, 1)
-	signal.Notify(ntr, os.Interrupt)
-	<-ntr
-	for i := 0; i < participants; i++ {
-		kill <- true
 	}
 }
 
