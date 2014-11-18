@@ -21,10 +21,7 @@ type box struct {
 	openedBy  string
 }
 
-var (
-	act = make(chan func(b *box))
-	die = make(chan bool)
-)
+var act = make(chan func(b *box))
 
 // exposeBox exposes a donation box for contestants
 // to act on.
@@ -41,6 +38,8 @@ func exposeBox() {
 	}
 }
 
+var kill = make(chan bool)
+
 // donor creates a new donor that is capable of adding
 // num items at a time.
 func donor(num int) {
@@ -50,7 +49,7 @@ func donor(num int) {
 			b.openedBy = donors[rand.Intn(5)]
 			b.donations += num
 		}:
-		case <-die:
+		case <-kill:
 			return
 		}
 
@@ -64,7 +63,7 @@ func thief(num int) {
 	for {
 		select {
 		case act <- steal(num):
-		case <-die:
+		case <-kill:
 			return
 		}
 
@@ -97,7 +96,7 @@ func main() {
 	signal.Notify(ntr, os.Interrupt)
 	<-ntr
 	for i := 0; i < participants; i++ {
-		die <- true
+		kill <- true
 	}
 }
 
