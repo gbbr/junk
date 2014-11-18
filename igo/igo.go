@@ -90,7 +90,7 @@ func (s *state) accepted(line string) bool {
 		return false
 	}
 	if stdout != "" {
-		fmt.Printf("=> %s\r\n", stdout)
+		fmt.Printf("=> %s\r\n", strings.TrimRight(stdout, "\r\n"))
 		return true
 	}
 
