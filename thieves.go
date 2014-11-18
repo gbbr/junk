@@ -71,8 +71,8 @@ func donor(num int) {
 		}:
 		case <-kill:
 			return
+		default:
 		}
-
 		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
 	}
 }
@@ -85,8 +85,8 @@ func thief(num int) {
 		case act <- steal(num):
 		case <-kill:
 			return
+		default:
 		}
-
 		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
 	}
 }
