@@ -28,6 +28,8 @@ var (
 	die = make(chan bool, participants)
 )
 
+// exposeBox exposes a donation box for contestants
+// to add into (or steal from).
 func exposeBox() {
 	var beat box
 	for {
@@ -46,6 +48,8 @@ func exposeBox() {
 	}
 }
 
+// donor creates a new donor that is capable of adding
+// num items at a time.
 func donor(num int) {
 	for {
 		select {
@@ -60,6 +64,8 @@ func donor(num int) {
 	}
 }
 
+// thief creates a new thief that is capable of taking
+// num items in one go.
 func thief(num int) {
 	for {
 		select {
