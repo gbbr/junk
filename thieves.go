@@ -33,9 +33,7 @@ func main() {
 	ntr := make(chan os.Signal, 1)
 	signal.Notify(ntr, os.Interrupt)
 	<-ntr
-	for i := 0; i < participants+1; i++ {
-		kill <- true
-	}
+	close(kill)
 }
 
 type box struct {
@@ -60,7 +58,7 @@ func exposeBox() {
 	}
 }
 
-var kill = make(chan bool, participants)
+var kill = make(chan bool)
 
 // donor creates a new donor that is capable of adding
 // num items at a time.
