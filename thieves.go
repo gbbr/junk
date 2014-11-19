@@ -24,6 +24,8 @@ func main() {
 	for i := 0; i < len(donors); i++ {
 		// Start all the donors
 		go donor(i)
+	}
+	for i := 0; i < len(thieves); i++ {
 		// Start an equal number of thieves
 		go thief(i)
 	}
