@@ -73,7 +73,7 @@ func donor(num int) {
 			return
 		default:
 		}
-		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
+		time.Sleep(time.Duration(rand.Intn(2)) * time.Second)
 	}
 }
 
@@ -87,7 +87,7 @@ func thief(num int) {
 			return
 		default:
 		}
-		<-time.After(time.Duration(rand.Intn(2)) * time.Second)
+		time.Sleep(time.Duration(rand.Intn(2)) * time.Second)
 	}
 }
 
