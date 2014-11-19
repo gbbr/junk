@@ -66,7 +66,7 @@ func donor(num int) {
 	for {
 		select {
 		case act <- func(b *box) {
-			b.openedBy = donors[rand.Intn(5)]
+			b.openedBy = donors[rand.Intn(len(thieves))]
 			b.donations += num
 		}:
 		case <-kill:
@@ -95,7 +95,7 @@ func thief(num int) {
 // in the name of a random thief
 func steal(N int) func(*box) {
 	return func(b *box) {
-		b.openedBy = thieves[rand.Intn(5)]
+		b.openedBy = thieves[rand.Intn(len(thieves))]
 		b.donations -= N
 		if b.donations < 0 {
 			b.donations = 0
