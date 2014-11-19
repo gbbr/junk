@@ -58,7 +58,7 @@ func exposeBox() {
 	}
 }
 
-var kill = make(chan bool)
+var kill = make(chan bool, participants)
 
 // donor creates a new donor that is capable of adding
 // num items at a time.
