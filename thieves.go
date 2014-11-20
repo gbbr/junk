@@ -11,9 +11,8 @@ import (
 )
 
 var (
-	thieves      = [...]string{"Mordy", "Jerk", "Jameson", "Janice", "Picasso"}
-	donors       = [...]string{"Jim", "Willy", "Babadook", "Hendrix", "Johnson"}
-	participants = len(thieves) + len(donors)
+	thieves = [...]string{"Mordy", "Jerk", "Jameson", "Janice", "Picasso"}
+	donors  = [...]string{"Jim", "Willy", "Babadook", "Hendrix", "Johnson"}
 )
 
 func main() {
