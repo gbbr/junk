@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
-	"os/exec"
 	"os/signal"
 	"runtime"
 	"time"
@@ -49,7 +48,6 @@ func exposeBox() {
 		select {
 		case fn := <-act:
 			fn(&b)
-			clearScreen()
 			fmt.Printf("Contents: %+v\n", b)
 		case <-kill:
 			return
@@ -70,7 +68,6 @@ func donor(num int) {
 		}:
 		case <-kill:
 			return
-		default:
 		}
 		time.Sleep(time.Duration(rand.Intn(2)) * time.Second)
 	}
@@ -84,7 +81,6 @@ func thief(num int) {
 		case act <- steal(num):
 		case <-kill:
 			return
-		default:
 		}
 		time.Sleep(time.Duration(rand.Intn(2)) * time.Second)
 	}
@@ -100,10 +96,4 @@ func steal(N int) func(*box) {
 			b.donations = 0
 		}
 	}
-}
-
-func clearScreen() {
-	cmd := exec.Command("clear")
-	cmd.Stdout = os.Stdout
-	cmd.Run()
 }
