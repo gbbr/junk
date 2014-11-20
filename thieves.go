@@ -24,6 +24,8 @@ func main() {
 	for i := 0; i < len(donors); i++ {
 		// Start all the donors
 		go donor(i)
+	}
+	for i := 0; i < len(thieves); i++ {
 		// Start an equal number of thieves
 		go thief(i)
 	}
@@ -31,9 +33,7 @@ func main() {
 	ntr := make(chan os.Signal, 1)
 	signal.Notify(ntr, os.Interrupt)
 	<-ntr
-	for i := 0; i < participants+1; i++ {
-		kill <- true
-	}
+	close(kill)
 }
 
 type box struct {
@@ -58,7 +58,7 @@ func exposeBox() {
 	}
 }
 
-var kill = make(chan bool, participants)
+var kill = make(chan bool)
 
 // donor creates a new donor that is capable of adding
 // num items at a time.
@@ -66,7 +66,7 @@ func donor(num int) {
 	for {
 		select {
 		case act <- func(b *box) {
-			b.openedBy = donors[rand.Intn(5)]
+			b.openedBy = donors[rand.Intn(len(donors))]
 			b.donations += num
 		}:
 		case <-kill:
@@ -95,7 +95,7 @@ func thief(num int) {
 // in the name of a random thief
 func steal(N int) func(*box) {
 	return func(b *box) {
-		b.openedBy = thieves[rand.Intn(5)]
+		b.openedBy = thieves[rand.Intn(len(thieves))]
 		b.donations -= N
 		if b.donations < 0 {
 			b.donations = 0
