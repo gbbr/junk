@@ -66,7 +66,7 @@ func donor(num int) {
 	for {
 		select {
 		case act <- func(b *box) {
-			b.openedBy = donors[rand.Intn(len(thieves))]
+			b.openedBy = donors[rand.Intn(len(donors))]
 			b.donations += num
 		}:
 		case <-kill:
