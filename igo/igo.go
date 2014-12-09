@@ -49,7 +49,6 @@ TRY_COMPILE:
 	if err != nil {
 		log.Fatalf("error writing tempfile: %s", err)
 	}
-
 	exec.Command("goimports", "-w", tmpFile).Run()
 	cmd := exec.Command("go", "run", tmpFile)
 	var stdout, stderr bytes.Buffer
@@ -59,7 +58,6 @@ TRY_COMPILE:
 	if _, ok := err.(*exec.ExitError); err != nil && !ok {
 		log.Fatalf("error executing file: %s", err)
 	}
-
 	scn := bufio.NewScanner(&stderr)
 	for scn.Scan() {
 		ln := scn.Text()
@@ -98,7 +96,6 @@ func (s *state) accepted(line string) bool {
 	if err != nil {
 		log.Fatalf("could not write to buffer: %+v\r\n", err)
 	}
-
 	return true
 }
 
@@ -118,17 +115,17 @@ LOOP:
 			break
 		}
 		switch scn.Text() {
-		case "q":
+		case "quit", "q":
 			break LOOP
-		case "help":
+		case "help", "h":
 			fmt.Println(welcomeMessage)
 			continue
-		case "r":
+		case "reset", "r":
 			st.buf.Reset()
 			st.line = 1
 			log.Println("Flushed buffer.")
 			continue
-		case "buf":
+		case "buffer", "b":
 			fmt.Println(st.buf.String())
 			continue
 		default:
@@ -137,6 +134,5 @@ LOOP:
 			}
 		}
 	}
-
 	os.RemoveAll(tmpDir)
 }
