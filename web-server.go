@@ -1,5 +1,6 @@
-// web-server runs an SSL server and serves go-gettable repos
 package main
+
+// go install ./... && systemctl restart web-server && journalctl -f -u web-server
 
 import (
 	"fmt"
@@ -21,6 +22,7 @@ var validRepos = map[string]struct{}{
 	"flippo":  struct{}{},
 	"retreat": struct{}{},
 	"hue":     struct{}{},
+	"ev":      struct{}{},
 }
 
 func writeHTML(w io.Writer, repo string) {
@@ -44,7 +46,7 @@ func redirect(w http.ResponseWriter, r *http.Request) {
 // validRepos. Otherwise it returns an empty string.
 func repoFromRequest(r *http.Request) string {
 	parts := strings.Split(path.Clean("/"+r.URL.Path), "/")
-	if len(parts) != 2 || parts[1] == "" {
+	if len(parts) < 2 || parts[1] == "" {
 		return ""
 	}
 	if _, ok := validRepos[parts[1]]; ok {
