@@ -3,6 +3,7 @@ package main
 // go install ./... && systemctl restart web-server && journalctl -f -u web-server
 
 import (
+	"crypto/tls"
 	"fmt"
 	"io"
 	"log"
@@ -12,8 +13,10 @@ import (
 )
 
 const (
-	certFile = "/etc/letsencrypt/live/gbbr.io/fullchain.pem"
-	keyFile  = "/etc/letsencrypt/live/gbbr.io/privkey.pem"
+	gbbrCertFile     = "/etc/letsencrypt/live/gbbr.io/fullchain.pem"
+	gbbrKeyFile      = "/etc/letsencrypt/live/gbbr.io/privkey.pem"
+	birdnestCertFile = "/etc/letsencrypt/live/birdnest.io/fullchain.pem"
+	birdnestKeyFile  = "/etc/letsencrypt/live/birdnest.io/privkey.pem"
 )
 
 // validRepos holds the valid repos that may be accessed via a path,
@@ -34,17 +37,12 @@ func writeHTML(w io.Writer, repo string) {
 	w.Write([]byte("</body></html>"))
 }
 
-// redirect redirects user to the correct URL.
-func redirect(w http.ResponseWriter, r *http.Request) {
-	if notLookingForRepo(w, r) {
-		return
-	}
-	http.Redirect(w, r, "https://gbbr.io"+r.RequestURI, http.StatusSeeOther)
-}
-
 // repoFromRequest returns the first token in the path, if it matches against
 // validRepos. Otherwise it returns an empty string.
 func repoFromRequest(r *http.Request) string {
+	if r.Host != "gbbr.io" {
+		return ""
+	}
 	parts := strings.Split(path.Clean("/"+r.URL.Path), "/")
 	if len(parts) < 2 || parts[1] == "" {
 		return ""
@@ -55,13 +53,27 @@ func repoFromRequest(r *http.Request) string {
 	return ""
 }
 
-// notLookingForRepo will return true if the user has been redirected.
+// notLookingForRepo will return true if the user has been redirected as a result
+// of accessing a URL which doesn't point to a valid repository.
 func notLookingForRepo(w http.ResponseWriter, r *http.Request) bool {
 	repo := repoFromRequest(r)
 	if repo == "" {
 		http.Redirect(w, r, "https://github.com/gbbr", http.StatusSeeOther)
 	}
 	return repo == ""
+}
+
+// redirect redirects the user from HTTP to HTTPS
+func redirect(w http.ResponseWriter, r *http.Request) {
+	switch r.Host {
+	case "birdnest.io":
+		http.Redirect(w, r, "https://birdnest.io"+r.RequestURI, http.StatusSeeOther)
+	default:
+		didRedirect := notLookingForRepo(w, r)
+		if !didRedirect {
+			http.Redirect(w, r, "https://gbbr.io"+r.RequestURI, http.StatusSeeOther)
+		}
+	}
 }
 
 func serveRepo(w http.ResponseWriter, r *http.Request) {
@@ -72,7 +84,51 @@ func serveRepo(w http.ResponseWriter, r *http.Request) {
 	writeHTML(w, repoFromRequest(r))
 }
 
+type mux struct {
+	gbbr, birdnest http.ServeMux
+}
+
+func (m *mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	switch r.Host {
+	case "birdnest.io":
+		m.birdnest.ServeHTTP(w, r)
+	default:
+		m.gbbr.ServeHTTP(w, r)
+	}
+}
+
+func newMux() http.Handler {
+	var bird, gbbr http.ServeMux
+
+	gbbr.HandleFunc("/", serveRepo)
+
+	bird.Handle("/", http.FileServer(http.Dir("/home/www/web-root")))
+
+	return &mux{gbbr, bird}
+}
+
 func main() {
+	gbbrCert, err := tls.LoadX509KeyPair(gbbrCertFile, gbbrKeyFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	birdnestCert, err := tls.LoadX509KeyPair(birdnestCertFile, birdnestKeyFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tlsConfig := &tls.Config{Certificates: []tls.Certificate{gbbrCert, birdnestCert}}
+	tlsConfig.BuildNameToCertificate()
+
+	ln, err := tls.Listen("tcp", ":443", tlsConfig)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	server := &http.Server{TLSConfig: tlsConfig, Handler: newMux()}
+
 	go http.ListenAndServe(":80", http.HandlerFunc(redirect))
-	log.Fatal(http.ListenAndServeTLS(":443", certFile, keyFile, http.HandlerFunc(serveRepo)))
+	if err := server.Serve(ln); err != nil {
+		log.Fatal(err)
+	}
 }
